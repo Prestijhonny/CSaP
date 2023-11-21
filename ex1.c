@@ -1,3 +1,5 @@
+// Create a program that reads all file from a root dir and count number of files in the dir
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
