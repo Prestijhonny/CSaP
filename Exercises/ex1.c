@@ -15,7 +15,7 @@ int searchDirRec(const char *startDir){
     DIR * dir = opendir(startDir);
     char destString[1024];
     if (dir == NULL){
-        //printf("Error to open dir %s\n",startDir);
+        printf("Error to open dir %s\n",startDir);
         return -1;
     }
     while ((dirent = readdir(dir)) != NULL){
