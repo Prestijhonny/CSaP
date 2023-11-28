@@ -1,5 +1,6 @@
 //Create a program that forks, waits for its child to successfully print a message 
 //to the screen, and prints another message before exiting
+// ----------------------------------------------------------
 // Modify the previous program so that a given number of children 
 // are generated on the command line. What happens to the other children?
 
@@ -18,7 +19,7 @@ int main(int argc, char **argv)
         printf("I'm child process with pid %d\n", getpid());
         exit(0);
     }else if(pid > 0){ 
-        // Father
+        // Parent
         wait(&state);
         printf("I'm father process with pid %d, the child process ended with code %d\n", getpid(), state);
         exit(0);
@@ -27,5 +28,4 @@ int main(int argc, char **argv)
         printf("Fork error\n");
         exit(-1);
     }
-
 }
