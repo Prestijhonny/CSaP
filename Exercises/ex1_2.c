@@ -42,7 +42,7 @@ int searchDirRec(const char *startDir)
 
 int main()
 {
-    char drives[MAX_PATH];
+    char *drives = malloc(sizeof(char)*MAX_PATH);
     DWORD len = GetLogicalDriveStrings(MAX_PATH, drives);
 
     if (len == 0)
@@ -50,12 +50,11 @@ int main()
         printf("Error to retrive logical drive information.\n");
         return 1;
     }
-    char *drive = drives;
-    while (*drive != '\0')
-    {
-        printf("Files e directory ricorsivamente a partire da: %s\n", drive);
-        searchDirRec(drive);
+    // For each drive, the character is 4 byte  
+    for(int i=0;i<len;i+=4){ 
+        printf("The search of file/dir start in %c:\\ drive\n", (*drives)++);
+        searchDirRec(drives);
         printf("Number of file counted on system %d\n", counter);
-        
     }
+    
 }
