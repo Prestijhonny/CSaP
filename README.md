@@ -1,2 +1,2 @@
 # CSaP
-CSaP exercises class
+CSaP stuff
