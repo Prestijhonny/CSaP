@@ -1,4 +1,4 @@
-// Intercepts SIGCHILD for each child that you create (NUMCHLD) from parent process and for each of them print a warning message with their PID. Upon termination of all children, the parent has to print a warning message followed by the list of their PIDsand exit statuses and finally exits
+// Intercepts SIGCHILD for each child that you create (NUMCHLD) from parent process and for each of them print a warning message with their PID. Upon termination of all children, the parent has to print a warning message followed by the list of their PIDs and exit statuses and finally exits
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,6 +22,7 @@ int main()
         printf("Error to create a signal\n");
     for (i = 0; i < NUMCHLD; i++)
     {
+        ++exitCode;
         if ((pids[i] = fork()) > 0)
         {
             // Parent code
@@ -29,6 +30,7 @@ int main()
         }
         else if (pids[i] == 0)
         {
+            // Childen code
             printf("I'm child process with PID %d\n",getpid());
             exit(exitCode);
         }
@@ -37,7 +39,6 @@ int main()
             printf("Error to create process %d\n", pids[i]);
             exit(-1);
         }
-        exitCode++;
     }
 
     // Parent code 
