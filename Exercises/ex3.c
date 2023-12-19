@@ -15,8 +15,8 @@ int main()
     if (signal(SIGUSR1, handler) == SIG_ERR){
         printf("Error to create a signal\n");
     }
-    // kill(getpid(),SIGUSR1);
-    
+    kill(getpid(),SIGUSR1);
+
     exit(0);
 }
 
