@@ -22,27 +22,27 @@ int main()
         printf("Error to create a signal\n");
     for (i = 0; i < NUMCHLD; i++)
     {
-        ++exitCode;
-        if ((pids[i] = fork()) > 0)
-        {
-            // Parent code
-            wait(&stato[i]);
-        }
-        else if (pids[i] == 0)
+        // ++exitCode;
+        if ((pids[i] = fork()) == 0)
         {
             // Childen code
-            printf("I'm child process with PID %d\n",getpid());
-            exit(exitCode);
+            printf("I'm child process with PID %d\n", getpid());
+            exit(123);
         }
-        else
+        else if (pids[i] == -1)
         {
+            // Error
             printf("Error to create process %d\n", pids[i]);
             exit(-1);
         }
     }
 
-    // Parent code 
-    for (int i =0;i<NUMCHLD;i++)
-        printf("Warning message: child process with PID %d and exit status %d\n", pids[i], stato[i] >> 8);
+    // Parent code
+    for (int j = 0; j < NUMCHLD; j++)
+    {
+        wait(&stato[j]);
+        printf("Warning message: child process with PID %d and exit status %d\n", pids[j], stato[j] >> 8);
+    }
+
     exit(0);
 }
