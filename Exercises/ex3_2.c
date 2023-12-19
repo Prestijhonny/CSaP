@@ -10,7 +10,7 @@ static int exitCode = 0;
 
 void handler(int sigVal)
 {
-    printf("Caught signal SIGCHLD %d\n", sigVal);
+    printf("Warning handler: caught signal SIGCHLD %d\n", sigVal);
 }
 
 int main()
@@ -41,8 +41,7 @@ int main()
     }
 
     // Parent code 
-    for (int i =0;i<NUMCHLD;i++){
+    for (int i =0;i<NUMCHLD;i++)
         printf("Warning message: child process with PID %d and exit status %d\n", pids[i], stato[i] >> 8);
-    }
     exit(0);
 }
