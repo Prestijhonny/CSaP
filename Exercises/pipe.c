@@ -22,7 +22,7 @@ int main ()
         // Close write descriptor for child process
         close(fd[1]);
         read(fd[0],out, sizeof(out));
-        printf("I'm child process and i've read from pipe:\n%s\n",out);
+        printf("I'm child process and i've read from pipe:\n\"%s\"\n",out);
         exit(0);
         break;
     case -1:
