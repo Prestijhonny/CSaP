@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
-#include <wait.h>
+#include <sys/wait.h>
 #include <time.h>
 #define NUMCHLD 5
 
@@ -39,7 +39,8 @@ int main()
     }
 
     // Parent code
-    for (int j = 0; j < NUMCHLD; j++)
+    int j =0;
+    for (j = 0; j < NUMCHLD; j++)
     {
         wait(&stato[j]);
         if (stato[j] >= 256){
