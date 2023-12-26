@@ -4,9 +4,10 @@
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
+#include <wait.h>
+#include <time.h>
 #define NUMCHLD 5
 
-static int exitCode = 0;
 
 void handler(int sigVal)
 {
@@ -22,12 +23,12 @@ int main()
         printf("Error to create a signal\n");
     for (i = 0; i < NUMCHLD; i++)
     {
-        // ++exitCode;
         if ((pids[i] = fork()) == 0)
         {
             // Childen code
             printf("I'm child process with PID %d\n", getpid());
-            exit(123);
+            srand(time(NULL) + getpid());
+            exit(rand());
         }
         else if (pids[i] == -1)
         {
@@ -41,7 +42,13 @@ int main()
     for (int j = 0; j < NUMCHLD; j++)
     {
         wait(&stato[j]);
-        printf("Warning message: child process with PID %d and exit status %d\n", pids[j], stato[j] >> 8);
+        if (stato[j] >= 256){
+            // Voluntary exit, the leftmost bit are filled by the exit code of child process
+            printf("Warning message: child process with PID %d and exit status %d\n", pids[j], stato[j] >> 8);
+        }else{
+            // Forced exit, the rightmost bit are filled by the signal code of child process
+            printf("Forced exit: child process with PID %d exit with signal code %d\n", pids[j], stato[j]);
+        }
     }
 
     exit(0);
